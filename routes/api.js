@@ -12,10 +12,6 @@ router.get('/', function(req, res, next) {
 
 router.route('/upload').post(upload.single('avatar'), function(req, res, next) {
   console.log(req.file);
-  // spawn('python',['python/test.py']).stdout.on('data', function(data) {
-  //   res.end(data);
-  // });
-  res.end("DONE");
 });
 
 module.exports = router;
