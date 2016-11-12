@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.route("/upload").post(upload.single('avatar'), function(req, res, next) {
   console.log(req.file);
+  res.end("Yeah boiiiiiii");
 });
 
 module.exports = router;
