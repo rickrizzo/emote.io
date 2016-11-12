@@ -1,6 +1,7 @@
 var express = require('express');
 var multer = require('multer');
 var upload = multer({ dest:"upload" });
+var spawn = require("child_process").spawn;
 
 var router = express.Router();
 
@@ -10,8 +11,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.route("/upload").post(upload.single('avatar'), function(req, res, next) {
-  console.log(req.file);
-  res.end("Yeah boiiiiiii");
+  spawn('python',['test.py']).stdout.on('data', function(data) {
+    res.end(data);
+  });
 });
 
 module.exports = router;
