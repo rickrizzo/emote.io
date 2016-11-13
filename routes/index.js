@@ -5,7 +5,8 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'Express',
-    foundation: '/modules/'
+    jquery: '/modules/jquery/dist/jquery.min.js',
+    frameCapture: 'javascripts/frameCapture.js'
   });
 });
 

@@ -9,14 +9,15 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-    let captureSession = AVCaptureSession()
+    var captureSession : AVCaptureSession?
+    var previewLayer  : AVCaptureVideoPreviewLayer!
     var captureDevice : AVCaptureDevice?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        captureSession.sessionPreset = AVCaptureSessionPresetLow
+        captureSession = AVCaptureSession()
         captureDevice = AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera, mediaType: AVMediaTypeVideo, position: .back)
         
         beginSession()
@@ -29,15 +30,16 @@ class ViewController: UIViewController {
 
     func beginSession() {
         do  {
-            try captureSession.addInput(AVCaptureDeviceInput(device: captureDevice))
+            try captureSession?.addInput(AVCaptureDeviceInput(device: captureDevice))
         } catch {
             print("ERROR!")
         }
         
-        var previewLayer = AVCaptureVideoPreivewLayer(session: captureSession)
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
         self.view.layer.addSublayer(previewLayer)
-        previewLayer?.frame = self.view.layer.fram
-        captureSession.startRunning()
+        previewLayer?.frame = self.view.layer.frame
+        captureSession?.startRunning()
     }
     
     func configureDevice() {
