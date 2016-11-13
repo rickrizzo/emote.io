@@ -28,11 +28,10 @@ class ViewController: UIViewController {
     }
 
     func beginSession() {
-        var err : NSError? = nil
-        captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
-        
-        if err != nil {
-            println("ERROR: \(err?.localizedDescription)")
+        do  {
+            try captureSession.addInput(AVCaptureDeviceInput(device: captureDevice))
+        } catch {
+            print("ERROR!")
         }
         
         var previewLayer = AVCaptureVideoPreivewLayer(session: captureSession)
@@ -43,7 +42,11 @@ class ViewController: UIViewController {
     
     func configureDevice() {
         if let device = captureDevice {
-            device.lockForConfiguration()
+            do {
+                try device.lockForConfiguration()
+            } catch {
+                print("Error with device configuration")
+            }
             device.focusMode = .locked
             device.unlockForConfiguration()
         }
