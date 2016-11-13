@@ -46,16 +46,38 @@
 // colors
 // 0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral
 $logo-green: #197278;
-$dark-blue: #243247;
-$light-blue: #34608F;
+
+
+
+// 0 - Angry
 $red: #E56B52;
+
+// 1 - Disgust
+$green: #A5D37E;
+
+// 2 - Fear
+$dark-blue: #243247;
+
+// 3 - Happy
+$light-blue: #34608F;
+
+// 4 - Sad
+$dark-blue: #243247;
+
+// 5 - Surprise
 $yellow: #F2F27A;
+
+// 6 - Neutral
 $gray: #A4ABB5;
 
 
 body {
 	padding: 15px;
 	font-family: 14px  Helvetica, Arial, sans-serif;
+
+	@media only screen and (max-width: 40em) { 
+		padding: 0px;
+	}
 
 	@media screen and (min-width: 60em) {
 		background-image: linear-gradient(to right, white, white 49%, $logo-green 49%);
@@ -102,6 +124,10 @@ body {
 .right {
 	@media only screen and (max-width: 40em) { 
 		background-color: $logo-green;
+
+
+		padding-top: 15px;
+		padding-bottom: 15px;
 	}
 
 	#video {
@@ -132,12 +158,15 @@ body {
 	}
 
 	.reactionbar {
-		background-color: $dark-blue;
+		background-color: $gray;
 		width: 100%;
+		
 		.emotiontext {
 			color: white;
 			text-align: center;
 			font-weight: 400;
+			padding: 5px;
+			margin: 0px;
 		}
 	}
 }

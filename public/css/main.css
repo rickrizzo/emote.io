@@ -4302,6 +4302,9 @@ a.th {
 body {
   padding: 15px;
   font-family: 14px  Helvetica, Arial, sans-serif; }
+  @media only screen and (max-width: 40em) {
+    body {
+      padding: 0px; } }
   @media screen and (min-width: 60em) {
     body {
       background-image: linear-gradient(to right, white, white 49%, #197278 49%); } }
@@ -4325,7 +4328,9 @@ body {
 
 @media only screen and (max-width: 40em) {
   .right {
-    background-color: #197278; } }
+    background-color: #197278;
+    padding-top: 15px;
+    padding-bottom: 15px; } }
 
 .right #video {
   width: 100%;
@@ -4347,9 +4352,11 @@ body {
   width: 100%; }
 
 .right .reactionbar {
-  background-color: #243247;
+  background-color: #A4ABB5;
   width: 100%; }
   .right .reactionbar .emotiontext {
     color: white;
     text-align: center;
-    font-weight: 400; }
+    font-weight: 400;
+    padding: 5px;
+    margin: 0px; }
