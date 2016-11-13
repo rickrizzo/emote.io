@@ -1,4 +1,6 @@
-extends layout
+//- //Ideally these elements aren't created until it's confirmed that the
+//-   client supports video/camera, but for the sake of illustrating the
+//-   elements involved, they are created with markup (not JavaScript)
 
 block content
   
@@ -8,6 +10,7 @@ block content
       meta(content='stuff, to, help, search, engines, not', name='keywords')
       meta(content='What this page is about.', name='description')
       meta(content='Display Webcam Stream', name='title')
+      link(rel='stylesheet', href='/css/main.css')
       title Display Webcam Stream
    
 
@@ -36,3 +39,44 @@ block content
                 function videoError(e) {
                 // do something
                 }
+
+video#video(width='640', height='480', autoplay='')
+button#snap Snap Photo
+canvas#canvas(width='640', height='480')
+
+form(enctype='multipart/form-data', action='/api/upload', method='post')
+input#avatar(type='submit')
+
+script.
+  // Grab elements, create settings, etc.
+
+  var video = document.getElementById('video');
+
+  // Get access to the camera!
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+
+  // Not adding `{ audio: true }` since we only want video now
+  navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+  video.src = window.URL.createObjectURL(stream);
+  video.play();
+  });
+  }
+
+  // Elements for taking the snapshot
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
+  var video = document.getElementById('video');
+  var avatar
+  
+  // Converts canvas to an image
+  function convertCanvasToImage(can) {
+  var image = new Image();
+  image.src = can.toDataURL("image/png");
+  return image;
+  }
+  // Trigger photo take
+  document.getElementById("snap").addEventListener("click", function() {
+  context.drawImage(video, 0, 0, 640, 480);
+  avatar = convertCanvasToImage(canvas);
+  });
+
