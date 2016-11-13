@@ -39,9 +39,9 @@ document.getElementById("snap").addEventListener("click", function() {
       contentType: false,
       processData: false,
       data: formData})
-          .done(function(e){
-              alert('done!');
-          });
+          // .done(function(e){
+          //     alert('done!');
+          // });
   });
 
 function base64ToBlob(base64, mime)
