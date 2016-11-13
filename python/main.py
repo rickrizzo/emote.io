@@ -1,31 +1,12 @@
 from __future__ import absolute_import
 import numpy as np
-import csv
 import tensorflow as tf
 
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras.layers.convolutional import Convolution2D, MaxPooling2D
-from keras.utils import np_utils
-from keras.preprocessing.image import ImageDataGenerator
-from keras.optimizers import SGD
 
 import pandas as pd
 
-from keras.wrappers.scikit_learn import KerasClassifier
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
-from sklearn.preprocessing import LabelEncoder
-from sklearn.pipeline import Pipeline
-from sklearn.model_selection import train_test_split
-
-import matplotlib.pyplot as plt 
-import matplotlib.image as mpimg
-
 from sklearn import svm, metrics
 import keras
-from keras.callbacks import EarlyStopping
-from keras.callbacks import ModelCheckpoint
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 from keras.models import load_model
 
