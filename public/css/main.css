@@ -4323,6 +4323,10 @@ body {
     .left .welcome_message .welcome_text p {
       text-align: center; }
 
+@media only screen and (max-width: 40em) {
+  .right {
+    background-color: #197278; } }
+
 .right #video {
   width: 100%;
   display: block;
@@ -4341,3 +4345,11 @@ body {
 
 .right #canvas {
   width: 100%; }
+
+.right .reactionbar {
+  background-color: #243247;
+  width: 100%; }
+  .right .reactionbar .emotiontext {
+    color: white;
+    text-align: center;
+    font-weight: 400; }
