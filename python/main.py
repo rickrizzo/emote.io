@@ -15,6 +15,8 @@ from PIL import Image
 import glob
 import os
 
+os.chdir('python')
+
 tf.logging.set_verbosity(tf.logging.FATAL)
 
 # size = 48, 48
