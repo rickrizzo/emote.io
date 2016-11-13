@@ -157,11 +157,11 @@ body {
 		width: 100%;
 	}
 
-	.reactionbar {
+	#reactionbar {
 		background-color: $gray;
 		width: 100%;
 		
-		.emotiontext {
+		#emotiontext h4 {
 			color: white;
 			text-align: center;
 			font-weight: 400;

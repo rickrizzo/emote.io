@@ -26,7 +26,7 @@ function convertCanvasToImage(can) {
 
 // Trigger photo take
 document.getElementById("snap").addEventListener("click", function() {
-  context.drawImage(video, 0, 0, 640, 480);
+  // context.drawImage(video, 0, 0, 640, 480);
   avatarImg = convertCanvasToImage(canvas);
   var blob = base64ToBlob(avatarImg.replace('data:image/png;base64,', ''), 'image/png');
   var formData = new FormData();
@@ -67,6 +67,9 @@ function base64ToBlob(base64, mime)
     return new Blob(byteArrays, {type: mime});
 }
 
+var emotion = ["Angry", "Digust","Fear","Happy","Sad","Surprised","Neutral"];
+var color = ["#E56B52", "#A5D37E", "#243247","#F2B441","#243247","#C05DCC","#A4ABB5" ];
+
 
 setInterval(function() {
     $.ajax({
@@ -74,10 +77,15 @@ setInterval(function() {
         url: '/data',
         cache: false,
         success: function(result) {
-            console.log(result)
+            document.getElementById("reactionbar").style.backgroundColor = color[result];
+            document.getElementById("emotiontext").innerHTML = "<h4>" + emotion[result] + "</h4>";
         }
     });
 }, 6000);
+
+
+
+
 
          // $.ajax({ 
          //     type: "GET",

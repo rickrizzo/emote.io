@@ -4351,10 +4351,10 @@ body {
 .right #canvas {
   width: 100%; }
 
-.right .reactionbar {
+.right #reactionbar {
   background-color: #A4ABB5;
   width: 100%; }
-  .right .reactionbar .emotiontext {
+  .right #reactionbar #emotiontext h4 {
     color: white;
     text-align: center;
     font-weight: 400;
