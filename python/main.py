@@ -20,8 +20,10 @@ os.chdir('python')
 tf.logging.set_verbosity(tf.logging.FATAL)
 
 # size = 48, 48
+
 img = load_img('../uploads/test.png')
-img = img.resize((48, 48), Image.ANTIALIAS)
+# print img.shape
+# img = img.resize((48, 48), Image.ANTIALIAS)
 
 
 # img = load_img('test_final2.png')

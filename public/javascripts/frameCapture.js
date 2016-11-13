@@ -77,7 +77,7 @@ setInterval(function() {
             console.log(result)
         }
     });
-}, 6000);
+}, 10000);
 
          // $.ajax({ 
          //     type: "GET",

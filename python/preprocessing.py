@@ -9,10 +9,10 @@ http://www.lucaamore.com/?p=638
 #PIL 1.1.7
 
 import cv #Opencv
+# from cv2.cv import *
 from PIL import Image
 import glob
 import os
-
 
 def DetectFace(image, faceCascade, returnImage=False):
     # This function takes a grey scale cv image and finds
@@ -112,7 +112,7 @@ def test(imageFilePath):
     face_im=DetectFace(cv_im,faceCascade, returnImage=True)
     img=cv2pil(face_im)
     img.show()
-    img.save('test_croppped.png')
+    img.save('test_cropped.png')
 
 
 # Test the algorithm on an image
@@ -120,19 +120,4 @@ def test(imageFilePath):
 
 # Crop all jpegs in a folder. Note: the code uses glob which follows unix shell rules.
 # Use the boxScale to scale the cropping area. 1=opencv box, 2=2x the width and height
-faceCrop('testPics/*.jpg',boxScale=1)
-
-
-size = 48, 48
-# jpgfile = Image.open("test.png")
-images = ["test_croppped"]
-
-for infile in images:
-    outfile = "test_final.png"
-    if infile != outfile:
-        try:
-            im = Image.open(infile)
-            im.thumbnail(size, Image.ANTIALIAS)
-            im.save(outfile, "PNG")
-        except IOError:
-            print "cannot create thumbnail for '%s'" % infile
+faceCrop('../uploads/test.png',boxScale=1)
