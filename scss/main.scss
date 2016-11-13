@@ -44,8 +44,13 @@
 
 
 // colors
+// 0=Angry, 1=Disgust, 2=Fear, 3=Happy, 4=Sad, 5=Surprise, 6=Neutral
 $logo-green: #197278;
 $dark-blue: #243247;
+$light-blue: #34608F;
+$red: #E56B52;
+$yellow: #F2F27A;
+$gray: #A4ABB5;
 
 
 body {
@@ -56,6 +61,8 @@ body {
 		background-image: linear-gradient(to right, white, white 49%, $logo-green 49%);
 
 	}
+
+
 	
 }
 
@@ -93,6 +100,9 @@ body {
 }
 
 .right {
+	@media only screen and (max-width: 40em) { 
+		background-color: $logo-green;
+	}
 
 	#video {
 		width: 100%;
@@ -117,10 +127,17 @@ body {
 		background-color: darken($dark-blue, 15%);
 	}
 		
-		
-	
-
 	#canvas {
 		width: 100%;
+	}
+
+	.reactionbar {
+		background-color: $dark-blue;
+		width: 100%;
+		.emotiontext {
+			color: white;
+			text-align: center;
+			font-weight: 400;
+		}
 	}
 }
