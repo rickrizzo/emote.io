@@ -26,7 +26,7 @@ function convertCanvasToImage(can) {
 
 // Trigger photo take
 document.getElementById("snap").addEventListener("click", function() {
-  // context.drawImage(video, 0, 0, 640, 480);
+  context.drawImage(video, 0, 0, 640, 480);
   avatarImg = convertCanvasToImage(canvas);
   var blob = base64ToBlob(avatarImg.replace('data:image/png;base64,', ''), 'image/png');
   var formData = new FormData();
@@ -81,7 +81,7 @@ setInterval(function() {
             document.getElementById("emotiontext").innerHTML = "<h4>" + emotion[result] + "</h4>";
         }
     });
-}, 10000);
+}, 4500);
 
 
 
