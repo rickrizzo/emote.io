@@ -9,50 +9,74 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
-    var captureSession : AVCaptureSession?
-    var previewLayer  : AVCaptureVideoPreviewLayer!
-    var captureDevice : AVCaptureDevice?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        captureSession = AVCaptureSession()
-        captureDevice = AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera, mediaType: AVMediaTypeVideo, position: .back)
-        
-        beginSession()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    func beginSession() {
-        do  {
-            try captureSession?.addInput(AVCaptureDeviceInput(device: captureDevice))
-        } catch {
-            print("ERROR!")
-        }
-        
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-        self.view.layer.addSublayer(previewLayer)
-        previewLayer?.frame = self.view.layer.frame
-        captureSession?.startRunning()
+        setupCameraSession()
     }
     
-    func configureDevice() {
-        if let device = captureDevice {
-            do {
-                try device.lockForConfiguration()
-            } catch {
-                print("Error with device configuration")
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        view.layer.addSublayer(previewLayer)
+        
+        cameraSession.startRunning()
+    }
+    
+    lazy var cameraSession: AVCaptureSession = {
+        let s = AVCaptureSession()
+        s.sessionPreset = AVCaptureSessionPresetLow
+        return s
+    }()
+    
+    lazy var previewLayer: AVCaptureVideoPreviewLayer = {
+        let preview =  AVCaptureVideoPreviewLayer(session: self.cameraSession)
+        preview?.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        preview?.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+        preview?.videoGravity = AVLayerVideoGravityResize
+        return preview!
+    }()
+    
+    func setupCameraSession() {
+        let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo) as AVCaptureDevice
+        
+        do {
+            let deviceInput = try AVCaptureDeviceInput(device: captureDevice)
+            
+            cameraSession.beginConfiguration()
+            
+            if (cameraSession.canAddInput(deviceInput) == true) {
+                cameraSession.addInput(deviceInput)
             }
-            device.focusMode = .locked
-            device.unlockForConfiguration()
+            
+            let dataOutput = AVCaptureVideoDataOutput()
+            dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
+            dataOutput.alwaysDiscardsLateVideoFrames = true
+            
+            if (cameraSession.canAddOutput(dataOutput) == true) {
+                cameraSession.addOutput(dataOutput)
+            }
+            
+            cameraSession.commitConfiguration()
+            
+            let serialQueue = DispatchQueue(label: "serialQueue")
+            dataOutput.setSampleBufferDelegate(self, queue: serialQueue)
+            
+        }
+        catch let error as NSError {
+            NSLog("\(error), \(error.localizedDescription)")
         }
     }
-
+    
+    func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
+        // Here you collect each frame and process it
+    }
+    
+    func captureOutput(captureOutput: AVCaptureOutput!, didDropSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
+        // Here you can count how many frames are dopped
+    }
+    
 }
+
 
