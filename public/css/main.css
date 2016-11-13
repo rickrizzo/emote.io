@@ -4300,24 +4300,21 @@ a.th {
     max-width: 800px; }
 
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
-  body #container {
-    margin: 0px auto;
-    width: 500px;
-    height: 375px;
-    border: 10px #333 solid; }
-  body #videoElement {
-    width: 500px;
-    height: 375px;
-    background-color: #666; }
+  padding: 15px;
+  font: 14px  Helvetica, Arial, sans-serif; }
 
-a {
-  color: #197278; }
+.left img {
+  display: block;
+  margin: auto;
+  width: 150px;
+  height: 150px; }
 
-.logo {
-  height: 100px;
-  width: 100px; }
+.left .welcome_message {
+  margin: 10px; }
+  .left .welcome_message h3 {
+    text-align: center; }
+  .left .welcome_message p {
+    text-align: center; }
 
-.test {
-  background-color: black; }
+.right #videoElement {
+  width: 100%; }
