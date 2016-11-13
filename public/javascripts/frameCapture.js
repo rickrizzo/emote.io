@@ -66,3 +66,24 @@ function base64ToBlob(base64, mime)
 
     return new Blob(byteArrays, {type: mime});
 }
+
+
+setInterval(function() {
+    $.ajax({
+        type: 'GET',
+        url: '/data',
+        cache: false,
+        success: function(result) {
+            alert(result)
+        }
+    });
+}, 3000);
+
+         // $.ajax({ 
+         //     type: "GET",
+         //     dataType: "json",
+         //     url: "http://localhost:8080/restws/json/product/get",
+         //     success: function(data){        
+         //        alert(data);
+         //     }
+         // });
