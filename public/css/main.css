@@ -4302,6 +4302,9 @@ a.th {
 body {
   padding: 15px;
   font: 14px  Helvetica, Arial, sans-serif; }
+  @media screen and (min-width: 64em) {
+    body {
+      background-image: linear-gradient(to right, white, white 49%, #197278 49%); } }
 
 .left img {
   display: block;
@@ -4312,9 +4315,24 @@ body {
 .left .welcome_message {
   margin: 10px; }
   .left .welcome_message h3 {
+    color: #243247;
     text-align: center; }
   .left .welcome_message p {
     text-align: center; }
 
-.right #videoElement {
+.right #video {
+  width: 100%;
+  display: block;
+  margin: auto; }
+
+.right #snap {
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+  .right #snap .button {
+    background-color: #243247;
+    border-color: #243247; }
+
+.right #canvas {
   width: 100%; }

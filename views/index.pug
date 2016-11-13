@@ -25,24 +25,12 @@ block content
             h3 Autism Facial Expression Tool
             p A 2016 #HackRPI project crafted with love by Chris Paradis, Candice Poon, Rob Russo, and Rob Rotering.
         .small-12.large-6.columns.right
-          //- h2 Helping those to identify smiles
-          video#videoElement(autoplay='true')
-            script.
-              var video = document.querySelector("#videoElement");
-              navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-              if (navigator.getUserMedia) {
-                navigator.getUserMedia({video: true}, handleVideo, videoError);
-                }
-                function handleVideo(stream) {
-                video.src = window.URL.createObjectURL(stream);
-                }
-                function videoError(e) {
-                // do something
-                }
+          video#video( autoplay='')
+          button#snap Snap Photo
+          canvas#canvas(width='640', height='480')
 
-video#video(width='640', height='480', autoplay='')
-button#snap Snap Photo
-canvas#canvas(width='640', height='480')
+
+
 
 form(enctype='multipart/form-data', action='/api/upload', method='post')
 input#avatar(type='submit')

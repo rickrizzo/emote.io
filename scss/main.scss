@@ -51,8 +51,12 @@ $dark-blue: #243247;
 body {
 	padding: 15px;
 	font: 14px  Helvetica, Arial, sans-serif;
-	// background-image: linear-gradient(to right, white, white 49%, $logo-green 49%);
 
+	@media screen and (min-width: 64em) {
+		background-image: linear-gradient(to right, white, white 49%, $logo-green 49%);
+
+	}
+	
 }
 
 .left {
@@ -67,6 +71,7 @@ body {
 		margin: 10px;
 
 		h3 {
+			color: $dark-blue;
 			text-align: center;
 		}
 
@@ -82,8 +87,26 @@ body {
 
 .right {
 
-	#videoElement {
+	#video {
 		width: 100%;
+		display: block;
+		margin: auto;
 
+	}
+
+	#snap {
+		display: block;
+		margin: auto;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		
+		.button {
+			background-color: $dark-blue;
+			border-color: $dark-blue;
+		}
+	}
+
+	#canvas {
+		width: 100%;
 	}
 }
