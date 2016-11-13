@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 router.route("/upload").post(upload.single('avatar'), function(req, res, next) {
   console.log(req.file);
   jimp.read('uploads/test.png', function (err, image) {
-    image.greyscale().write('uploads/test.png');
+    image.resize(48, 48).greyscale().write('uploads/test.png');
   });
   spawn('python',['python/test.py']).stdout.on('data', function(data) {
     res.end(data);

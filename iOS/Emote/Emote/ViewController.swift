@@ -9,72 +9,43 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    var captureSession : AVCaptureSession?
+    var stillImageOutput : AVCapturePhotoOutput?
+    var previewLayer : AVCaptureVideoPreviewLayer?
+    
+    @IBOutlet var CameraView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCameraSession()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        view.layer.addSublayer(previewLayer)
-        
-        cameraSession.startRunning()
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
-    lazy var cameraSession: AVCaptureSession = {
-        let s = AVCaptureSession()
-        s.sessionPreset = AVCaptureSessionPresetLow
-        return s
-    }()
-    
-    lazy var previewLayer: AVCaptureVideoPreviewLayer = {
-        let preview =  AVCaptureVideoPreviewLayer(session: self.cameraSession)
-        preview?.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-        preview?.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
-        preview?.videoGravity = AVLayerVideoGravityResize
-        return preview!
-    }()
-    
-    func setupCameraSession() {
-        let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo) as AVCaptureDevice
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(<#T##animated: Bool##Bool#>)
         
+        captureSession = AVCaptureSession()
+        captureSession?.sessionPreset = AVCaptureSessionPresetLow
+
         do {
-            let deviceInput = try AVCaptureDeviceInput(device: captureDevice)
+            var backCamera = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+            var error : NSError?
+            var input = try AVCaptureDeviceInput(device: backCamera)
             
-            cameraSession.beginConfiguration()
-            
-            if (cameraSession.canAddInput(deviceInput) == true) {
-                cameraSession.addInput(deviceInput)
+            if error == nil && captureSession!.canAddInput(input) {
+                captureSession?.addInput(input)
+                stillImageOutput = AVCapturePhotoOutput()
+                //stillImageOutput?.= [AVVideoCodecKey : AVVideoCodecJPEG]
+                stillImageOutput?. = [AVVideoCodecKey :AVVideoCodecJPEG]
             }
-            
-            let dataOutput = AVCaptureVideoDataOutput()
-            dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
-            dataOutput.alwaysDiscardsLateVideoFrames = true
-            
-            if (cameraSession.canAddOutput(dataOutput) == true) {
-                cameraSession.addOutput(dataOutput)
-            }
-            
-            cameraSession.commitConfiguration()
-            
-            let serialQueue = DispatchQueue(label: "serialQueue")
-            dataOutput.setSampleBufferDelegate(self, queue: serialQueue)
-            
+        } catch {
+            print("Error initializing back camera")
         }
-        catch let error as NSError {
-            NSLog("\(error), \(error.localizedDescription)")
-        }
-    }
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
-        // Here you collect each frame and process it
-    }
-    
-    func captureOutput(captureOutput: AVCaptureOutput!, didDropSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
-        // Here you can count how many frames are dopped
     }
     
 }
