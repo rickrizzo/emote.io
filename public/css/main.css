@@ -4301,8 +4301,8 @@ a.th {
 
 body {
   padding: 15px;
-  font: 14px  Helvetica, Arial, sans-serif; }
-  @media screen and (min-width: 64em) {
+  font-family: 14px  Helvetica, Arial, sans-serif; }
+  @media screen and (min-width: 60em) {
     body {
       background-image: linear-gradient(to right, white, white 49%, #197278 49%); } }
 
@@ -4317,8 +4317,11 @@ body {
   .left .welcome_message h3 {
     color: #243247;
     text-align: center; }
-  .left .welcome_message p {
-    text-align: center; }
+  .left .welcome_message .welcome_text {
+    border-top: solid 2px lightgrey;
+    padding-top: 5px; }
+    .left .welcome_message .welcome_text p {
+      text-align: center; }
 
 .right #video {
   width: 100%;
@@ -4329,10 +4332,12 @@ body {
   display: block;
   margin: auto;
   margin-top: 10px;
-  margin-bottom: 10px; }
-  .right #snap .button {
-    background-color: #243247;
-    border-color: #243247; }
+  margin-bottom: 10px;
+  background-color: #243247;
+  border: #243247; }
+
+.right #snap:hover {
+  background-color: #0a0e14; }
 
 .right #canvas {
   width: 100%; }
