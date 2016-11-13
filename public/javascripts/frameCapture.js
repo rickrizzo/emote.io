@@ -74,10 +74,10 @@ setInterval(function() {
         url: '/data',
         cache: false,
         success: function(result) {
-            alert(result)
+            console.log(result)
         }
     });
-}, 3000);
+}, 6000);
 
          // $.ajax({ 
          //     type: "GET",
