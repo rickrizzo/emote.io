@@ -1,6 +1,6 @@
 '''
 Sources:
-http://opencv.willowgarage.com/documentation/python/cookbook.html
+http://opencv2.cv.willowgarage.com/documentation/python/cookbook.html
 http://www.lucaamore.com/?p=638
 '''
 
@@ -8,8 +8,9 @@ http://www.lucaamore.com/?p=638
 #Opencv 2.4.2
 #PIL 1.1.7
 
-import cv #Opencv
+# import cv #Opencv
 # from cv2.cv import *
+import cv2
 from PIL import Image
 import glob
 import os
@@ -26,11 +27,11 @@ def DetectFace(image, faceCascade, returnImage=False):
     haar_flags = 0
 
     # Equalize the histogram
-    cv.EqualizeHist(image, image)
+    cv2.cv.EqualizeHist(image, image)
 
     # Detect the faces
-    faces = cv.HaarDetectObjects(
-            image, faceCascade, cv.CreateMemStorage(0),
+    faces = cv2.cv.HaarDetectObjects(
+            image, faceCascade, cv2.cv.CreateMemStorage(0),
             haar_scale, min_neighbors, haar_flags, min_size
         )
 
@@ -40,7 +41,7 @@ def DetectFace(image, faceCascade, returnImage=False):
             # Convert bounding box to two CvPoints
             pt1 = (int(x), int(y))
             pt2 = (int(x + w), int(y + h))
-            cv.Rectangle(image, pt1, pt2, cv.RGB(255, 0, 0), 5, 8, 0)
+            cv2.cv.Rectangle(image, pt1, pt2, cv2.cv.RGB(255, 0, 0), 5, 8, 0)
 
     if returnImage:
         return image
@@ -51,13 +52,13 @@ def pil2cvGrey(pil_im):
     # Convert a PIL image to a greyscale cv image
     # from: http://pythonpath.wordpress.com/2012/05/08/pil-to-opencv-image/
     pil_im = pil_im.convert('L')
-    cv_im = cv.CreateImageHeader(pil_im.size, cv.IPL_DEPTH_8U, 1)
-    cv.SetData(cv_im, pil_im.tostring(), pil_im.size[0]  )
+    cv_im = cv2.cv.CreateImageHeader(pil_im.size, cv2.cv.IPL_DEPTH_8U, 1)
+    cv2.cv.SetData(cv_im, pil_im.tostring(), pil_im.size[0]  )
     return cv_im
 
 def cv2pil(cv_im):
     # Convert the cv image to a PIL image
-    return Image.fromstring("L", cv.GetSize(cv_im), cv_im.tostring())
+    return Image.fromstring("L", cv2.cv.GetSize(cv_im), cv_im.tostring())
 
 def imgCrop(image, cropBox, boxScale=1):
     # Crop a PIL image with the provided box [x(left), y(upper), w(width), h(height)]
@@ -78,7 +79,7 @@ def faceCrop(imagePattern,boxScale=1):
     #   haarcascade_frontalface_alt_tree.xml
     #   haarcascade_frontalface_default.xml
     #   haarcascade_profileface.xml
-    faceCascade = cv.Load('haarcascade_frontalface_alt.xml')
+    faceCascade = cv2.cv.Load('haarcascade_frontalface_alt.xml')
 
     imgList=glob.glob(imagePattern)
     if len(imgList)<=0:
@@ -108,7 +109,7 @@ def test(imageFilePath):
     #   haarcascade_frontalface_alt_tree.xml
     #   haarcascade_frontalface_default.xml
     #   haarcascade_profileface.xml
-    faceCascade = cv.Load('haarcascade_frontalface_alt.xml')
+    faceCascade = cv2.cv.Load('haarcascade_frontalface_alt.xml')
     face_im=DetectFace(cv_im,faceCascade, returnImage=True)
     img=cv2pil(face_im)
     img.show()
