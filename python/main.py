@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import numpy as np
 import tensorflow as tf
+import sys
 
 
 import pandas as pd
@@ -14,14 +15,14 @@ from PIL import Image
 import glob
 import os
 
-tf.logging.set_verbosity(tf.logging.ERROR)
+tf.logging.set_verbosity(tf.logging.FATAL)
 
 # size = 48, 48
-img = load_img('test3.png')
+img = load_img('../uploads/test.png')
 img = img.resize((48, 48), Image.ANTIALIAS)
 
 
-# img = load_img('test_final2.png') 
+# img = load_img('test_final2.png')
 X_train = img_to_array(img)
 # print X_train.shape
 X_train = np.mean(X_train, axis=2)
@@ -38,10 +39,11 @@ X_train /= 255
 # x = x.reshape((1,) + x.shape)  # this is a Numpy array with shape (1, 3, 150, 150)
 # print x.shape
 
-
-
 model = load_model('Deep_Net_Final.h5')
 
 # predict_classes(self, x, batch_size=32, verbose=1)
-predictions = model.predict_classes(X_train, batch_size=1, verbose=1)
-print predictions[0]
+predictions = model.predict_classes(X_train, batch_size=1, verbose=0)
+with open('../result.txt', 'w') as f:
+    f.write(str(predictions[0]))
+# sys.stderr.write(str(predictions[0]))
+# sys.stdout.flush()

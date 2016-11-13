@@ -24,7 +24,7 @@ router.route("/upload").post(upload.single('avatar'), function(req, res, next) {
   jimp.read('uploads/test.png', function (err, image) {
     image.resize(48, 48).greyscale().write('uploads/test.png');
   });
-  spawn('python',['python/test.py']).stdout.on('data', function(data) {
+  spawn('python',['python/main.py']).stdout.on('data', function(data) {
     res.end(data);
   });
 });
